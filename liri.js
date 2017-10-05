@@ -1,4 +1,4 @@
-var twitterKeysPage = require("./keys.js");
+var auth = require("./keys.js");
 var TwitterRequest = require('twitter');
 var spotifyQuery = require('node-spotify-api');
 var request = require('request');
@@ -28,7 +28,7 @@ function initApp() {
 
 function getTweets() {
     params = { screen_name: 'gk19680681' };
-    client = new TwitterRequest(twitterKeysPage);
+    client = new TwitterRequest(auth.twitterAuth);
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
         if (!error) {
             var max = 20;
@@ -52,7 +52,7 @@ function getSpotifyQuery() {
         console.log(options);
     };
 
-    var spotify = new spotifyQuery({ id: '3113772f83ac4bfaa2783347373949b7', secret: 'c354e7f36caa426ca90804a2bb72ee1f' });
+    var spotify = new spotifyQuery(auth.spotifyAuth);
     spotify.search({ type: 'track', query: options }, function(err, data) {
 
         if (err) {
